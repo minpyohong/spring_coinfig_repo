@@ -1,0 +1,42 @@
+server:
+  servlet:
+    jsp:
+      registered: true
+  port: 7015
+
+#header: 'Authorization'
+header: 'authToken'
+header-prefix: 'amis '
+
+mybatis:
+  config-location: classpath:config/mybatis-config.xml    
+
+logging:
+  config: classpath:config/logback-spring.xml
+  level:
+    root: info
+    com.hanwha.amis.issuer.worker: debug
+
+spring:
+  devtools:
+    livereload:
+      enabled: true
+  servlet:
+    multipart:
+      maxFileSize: 100MB
+      maxRequestSize: 100MB
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    #azuer
+    username: postgres@legacy-app-issuer
+    password: amis12#$
+    url: jdbc:postgresql://localhost:22222/postgres
+    #aws
+    #username: postgres
+    #password: carroti12#$
+    #url: jdbc:postgresql://15.164.217.149:5434/postgres
+
+
+
+broker:
+  address: http://localhost:7001

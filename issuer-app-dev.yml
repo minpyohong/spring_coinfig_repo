@@ -1,0 +1,60 @@
+server:
+  servlet:
+    jsp:
+      registered: true
+  port: 7010
+
+#header: 'Authorization'
+header: 'authToken'
+header-prefix: 'amis '
+
+mybatis:
+  config-location: classpath:config/mybatis-config.xml
+
+logging:
+  config: classpath:config/logback-spring.xml
+  level:
+    root: info
+    com.hanwha.amis.issuer.app: debug
+
+spring:
+  devtools:
+    livereload:
+      enabled: true
+  servlet:
+    multipart:
+      maxFileSize: 100MB
+      maxRequestSize: 100MB
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    #azuer
+    username: postgres@legacy-app-issuer
+    password: amis12#$
+    url: jdbc:postgresql://legacy-app-issuer.postgres.database.azure.com:5432/postgres
+    #aws
+    #username: postgres
+    #password: carroti12#$
+    #url: jdbc:postgresql://15.164.217.149:5434/postgres
+
+
+issuer:
+  worker:
+    host: http://localhost
+    port: 7015
+    path: worker/v1
+
+broker:
+  host: http://localhost
+  port: 7011
+  prefix: hchain
+
+hchain:
+  htmsUrl: http://20.39.188.112
+  multiSig: /hchain/multisig/receiver
+  expirationAccessKey: 10
+  issuer:
+    adminPublickey: GA3D3VUUIU2RPR3DDMI5FZ26J6UJYLIZ6LG6NSP6HASK3YPCHL3USYOG
+    adminSecretkey: SCMMYQZNTOITKKS5KG23IACO7B5RZYKEIYISZXRQRR4HRWZQJWBO66CW
+    adminSubPubkey: GALYGM6A4GC4ZJVMNRR36EYY5BQZYGHLZFF4XUE72RHWFWRMV5ZO2UF4
+  broker:
+    adminPublickey: GBULQKMHRA7QLWDDCW7ALSSHDRUQCAQFSALDOMN3NXSFVZAIDETV3VKO

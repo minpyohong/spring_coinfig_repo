@@ -1,0 +1,58 @@
+server:
+  port: 80
+
+logging:
+  config: classpath:config/logback-spring.xml
+  level:
+    root: info
+    com.hanwha.amis.issuer.gateway: debug
+
+
+spring:
+  devtools:
+    livereload:
+      enabled: true
+  mvc:
+    view:
+      prefix: '/static/**'
+      suffix: 'index.html'
+
+zuul:
+  ignored-headers: Access-Control-Allow-Credentials, Access-Control-Allow-Origin
+  ignored-services: '*'
+  host:
+    #5분
+    connect-timeout-millis: 300000
+    #5분
+    socket-timeout-millis: 300000
+  routes:
+    auth-service:
+      path: '/auth/**'
+      sensitive-headers:
+      url: 'http://localhost:7006/'
+      strip-prefix: false
+    issuer-service:
+      path: '/issuer/**'
+      url: 'http://localhost:7010/'
+      strip-prefix: false
+    worker-service:
+      path: '/worker/**'
+      url: 'http://localhost:7015/'
+      strip-prefix: false
+    hchain-service:
+      path: '/hchain/**'
+      url: 'http://localhost:7010/'
+      strip-prefix: false
+    toml-service:
+      path: '/.well-known/**'
+      url: 'http://localhost:7010/'
+      strip-prefix: false
+
+security:
+  jwt:
+    uri: '/auth/**'
+    #header: 'Authorization'
+    header: 'authToken'
+    prefix: 'amis '
+    check-url: 'http://localhost:7006/auth/v1/verify'
+    

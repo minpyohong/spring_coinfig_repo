@@ -1,0 +1,47 @@
+server:
+  # deny : 전체 접근 허용 후 특정 ip만 차단.
+  # allow : 전체 접근 차단 후 특정 ip만 허용.
+  block-option: allow
+  ip:
+    - 'http://127.0.0.1'
+  port: 7006
+
+security:
+  jwt:
+    uri: '/auth/**'
+    #header: 'Authorization'
+    header: 'authToken'
+    prefix: 'amis '
+    # 초단위로 입력(600 = 10분)
+    expiration: 3600
+    # 지속시간(초단위로 입력 : 3600 = 1시간)
+    duration: 7200
+    # sha256(https://travistidwell.com/jsencrypt/demo/) : !@hanwha-abt-st@!
+    signature: 'Mh3V1ZQ3FdyKQFuNW1q3oaWOHglMmV3xBUT2b7grBefA/SupECdRpiyymRbPV05JJWrwVj83JO/et8HmRrjTwmdsrVUebczBJeoIR8xXO9sKnbj76yZMs6j23lXlmvMjMBfnqi2nwTl6LJ2oZ3yebF75BvjcmcwZijObM0NENZE='
+
+
+mybatis:
+  config-location: classpath:config/mybatis-config.xml
+
+logging:
+  config: classpath:config/logback-spring.xml
+  level:
+    root: info
+    com.hanwha.amis.issuer.auth: debug
+
+
+spring:
+  devtools:
+    livereload:
+      enabled: true
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    #azuer
+    #username: postgres@legacy-app-issuer
+    #password: amis12#$
+    #url: jdbc:postgresql://legacy-app-issuer.postgres.database.azure.com:5432/postgres
+    #aws
+    username: postgres
+    password: amis12#$
+    url: jdbc:postgresql://52.78.93.102:5434/postgres
+
